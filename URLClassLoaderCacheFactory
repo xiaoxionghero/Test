@@ -1,0 +1,29 @@
+package com.fctx.tcenter.service.cache;
+
+import java.io.IOException;
+import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.Map;
+
+public class URLClassLoaderCacheFactory {
+
+	private static Map<String, URLClassLoader> beanClassLoaderMap = new HashMap<String, URLClassLoader>();
+
+	public static void addClassLoader(String key, URLClassLoader cal) {
+		beanClassLoaderMap.put(key, cal);
+	}
+
+	public static URLClassLoader getClassLoader(String key) {
+		return beanClassLoaderMap.get(key);
+	}
+
+	public static void deleteClassLoader(String key) throws IOException {
+		URLClassLoader cal = beanClassLoaderMap.get(key);
+		if(cal!=null)
+		{
+			beanClassLoaderMap.remove(key);
+		}
+		System.gc();
+	}
+
+}
